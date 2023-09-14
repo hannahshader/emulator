@@ -1,0 +1,144 @@
+README
+Identifies you and your programming partner by name.
+Hannah Shader (hshade01) and Kalyn Muhlenberg (kmuhle01)
+
+Acknowledges help you may have received from or collaborative work you may 
+have undertaken with others.
+Recieved help from Tina, Alan, Valarie, Lexi, and Josh. 
+
+Identifies what has been correctly implemented and what has not.
+All correctly implemented.
+
+Briefly enumerates any significant departures from your design.
+We decided to put the function that iterates through the instructions in the 
+um_operations file instead of the um file. This is becuase we wanted all 
+functions that use the operations_info struct to be in the same module.
+We are not including in our submission the tests from our design document that
+would caused the reference machine to fail, however we have tested these cases.
+We are not testing the case where we try to access an out of bounds segment id
+because this case should be handled with Hanson's sequences.
+We merged out output and load test becuase you can't test output operation 
+without first loading a value to a register.
+
+Succinctly describes the architecture of your system. Identify the modules 
+used, what abstractions they implement, what secrets they know, and 
+how they relate to one another. Avoid narrative descriptions of the behavior
+of particular modules.
+
+The modules used are um, um_populate, um_operations, and memory_type. 
+Memory_type defines the sequence of sequences that our memory is stored in.
+It also defines functions for initializing, getting, setting, and memory 
+handling for this data structure. 
+
+Um contains a main function which initializes an array representing our
+registers, and intializes a new memory type using functionality from module 
+memory_type. It then calls functions in um_populate and um-operations to 
+get and preform the instructions from the file passed in. 
+
+Um_populate uses the functionality and data structure defined in memory_type 
+to initialize a new memory data type, and populates the structure with data 
+from the file. The data from the file is populated as instructions places 
+in the first segment of memory. 
+
+Um_operations contains a loop that executes the instructions previously places 
+in the first segment of memory, until the program is halted. This module also 
+contains the functions that preform each operation using memory and register 
+values.
+
+Explains how long it takes your UM to execute 50 million instructions, 
+and how you know.
+We know that Sandmark executes 110462794 instructions from a print statement 
+we put in our command loop. We know Sandmark takes 7.68 seconds approximately,
+so we know that 50 million instructions executes in approximately 3.48 seconds.
+
+Mentions each UM unit test (from UMTESTS) by name, explaining what each one 
+tests and how.
+
+halt.um
+Appends the halt operation, tests to make sure there's no output and the 
+program runs with the test file.
+
+halt-verbose.um
+Appends the halt operation first, then other output commands. Tests to make 
+sure the program halts before any other oeprations are preformed.
+program runs with the test file.
+
+add.um
+Adds two numbers to registers, calls add operation, and outputs the result.
+Halts afterwards. 
+Tests to make sure that the character result has an ascii value equivalent
+to the sum of the two numbers in the registers. 
+
+multiplication.um
+Adds two numbers to registers, calls multiply operation, and outputs the 
+result. Halts afterwards. 
+Tests to make sure that the character result has an ascii value equivalent
+to the product of the two numbers in the registers. 
+
+division.um
+Adds two numbers to registers, calls divide operation, and outputs the 
+result. Halts afterwards. 
+Tests to make sure that the character result has an ascii value equivalent
+to the two numbers in the registers divided. 
+
+math-mod.um
+Adds numbers to registers, and calls operations to get values in registers
+that exceed the maximum value of a uint32_t. Outputs values and halts.
+Ensures that the outputted characters correspond to expected outputs if
+the values added to the registers are modded by the max value (2^32).
+
+reuse-id-map-unmap.um
+Loads values into a memory segment, outputs those values, then unmaps the
+segment, then maps the segment again, loads new values, and outputs those 
+values. Halts. Ensures that the output characters correspond to the new and old
+values that were added first and second to the register to make sure that 
+the memory segment was actually mapped and unmapped.
+
+conditional-move.um
+Loads values into registers. 
+Calls the conditional move operation with a non-zero value, so the operation
+executes. Assigns one register value to another. Outputs the value of
+the desination register and halts. 
+Esures that the ascii value of the output corresponds to source register that
+was moved to the printed destination register.
+
+nand.um
+Loads values into registers, moves the
+result of the nand operation with the loaded values to another register.
+Outputs the value of this register and halts. 
+Esures that the ascii value of the output corresponds to the expeected
+result of the bitwise nand operation between the loaded values.
+
+input.um
+Stores input values in registers, and then outputs those registers. Halts.
+Ensures that the output values are character corresponding to the values 
+previously inputted.
+
+map-test.um
+Loads register values for the size of a segment, and a location for the
+segment to map to. Calls map segment operation using those values.
+Loads other register values to add words of the segment. 
+One by one, outputs the value in each location in the segment by adding
+them to registers and outputting register values. Halts.
+Ensures that the output values are the character equivalent of the 
+register values added to each word in the segment.
+
+load-test.um
+Loads register values and outputs them. Halts.
+Esures that the ascii value of the output corresponds to the values
+loaded.
+
+load-program.um
+Loads instructions, then uses load program operation to skip past 
+some output operations. Halts. Ensures that load program successfully 
+loads the program instructions specified, which results in the skip,
+and that the output value reflects that some output operations have been
+skipped.
+
+Says approximately how many hours you have spent analyzing the assignment
+    Approximately 3 hours.
+Says approximately how many hours you have spent preparing your design
+    Approximately 5 hours.
+Says approximately how many hours you have spent solving the problems after 
+your analysis
+    Approximately 15 hours.
